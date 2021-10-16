@@ -37,16 +37,17 @@ const Login = (props) => {
     isValid: null,
   });
 
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: pwIsValid } = pwState;
+
   useEffect(() => {
     const identifier = setTimeout(() => {
-      setFormIsValid(
-        emailState.value.includes("@") && pwState.value.trim().length > 6
-      );
+      setFormIsValid(emailIsValid && pwIsValid);
     }, 500);
     return () => {
       clearTimeout(identifier);
     };
-  }, [emailState.value, pwState.value]);
+  }, [emailIsValid, pwIsValid]);
 
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: "USER_INPUT", val: event.target.value });
